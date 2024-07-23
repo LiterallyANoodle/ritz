@@ -1,4 +1,5 @@
 extern crate clap;
+mod data;
 use clap::{Parser, Subcommand};
 
 // struct defining possible arguments
@@ -20,7 +21,7 @@ enum Commands {
 }
 
 fn ritz_init(args: Args) {
-    println!("Init not implemented!");
+    data::init();
 }
 
 fn ritz_commit(args: Args) {
