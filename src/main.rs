@@ -1,6 +1,7 @@
-pub mod arg_parse;
+extern crate clap;
+mod arg_parse;
 
 fn main() {
     println!("Hello, world!");
-    arg_parse::parse();
+    arg_parse::arg_parse();
 }

@@ -1,28 +1,25 @@
 // Submodule for parsing command line arguments
-use std::env;
+use clap::{Parser, Subcommand};
 
-pub fn parse() {
-    let args: Vec<String> = env::args().collect();
+// struct defining possible arguments
+#[derive(Parser, Debug)]
+#[command(version, about, long_about = None)]
+struct Args {
 
-    match args.len() {
+    #[command(subcommand)]
+    cmd: Commands,
 
-        // no args
-        1 => {
-            println!("Called arg_parse.parse() with no arguments.");
-        }
+}
 
-        // 1 arg
-        2 => {
-            match args[1].parse() {
-                Ok(42) => println!("This is 42"),
-                _ => println!("This is not 42"),
-            }
-        }
+#[derive(Subcommand, Debug)]
+enum Commands {
+    
+    init,
+    commit,
 
-        // default case
-        _ => {
-            println!("Match failed.");
-        }
+}
 
-    }
+pub fn arg_parse() {
+    let args = Args::parse();
+    dbg!(args);
 }
