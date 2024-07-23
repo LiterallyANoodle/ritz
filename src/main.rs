@@ -1,6 +1,7 @@
 extern crate clap;
 mod data;
 use clap::{Parser, Subcommand};
+use std::{fs::File, io, io::prelude::*};
 
 // struct defining possible arguments
 #[derive(Parser, Debug)]
@@ -17,6 +18,7 @@ enum Commands {
     
     init,
     commit,
+    read_test,
 
 }
 
@@ -32,8 +34,15 @@ fn ritz_default(args: Args) {
     println!("Please use a subcommand: init, commit");
 }
 
+fn read_file_as_bytes(path: &str) -> io::Result<Vec<u8>> {
+    let mut f = File::open(path)?;
+    let mut buffer = Vec::new();
+    
+    f.read_to_end(&mut buffer)?;
+    return Ok(buffer);
+}
+
 fn main() {
-    println!("Hello, world!");
     let args = Args::parse();
 
     match args.cmd {
@@ -41,6 +50,10 @@ fn main() {
             match c {
                 Commands::init => { ritz_init(args) },
                 Commands::commit => { ritz_commit(args) },
+                Commands::read_test => { 
+                    let buffer = read_file_as_bytes("test.txt");
+                    println!("Here come the test results: {buffer:?}");
+                    return (); },
                 _ => { ritz_default(args) },
             }
         },

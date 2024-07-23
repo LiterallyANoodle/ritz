@@ -8,7 +8,16 @@ pub fn init() {
         return;
     }
     match fs::create_dir_all(GIT_DIR) {
-        Ok(_) => println!("Successfully initialized ritz repository."),
-        Err(e) => println!("{:?}", e),
+        Ok(_) => (),
+        Err(e) => panic!("{e:?}"),
     }
+    match fs::create_dir_all(format!("{GIT_DIR}\\objects")) {
+        Ok(_) => (),
+        Err(e) => panic!("{e:?}"),
+    }    
+    println!("Successfully initialized ritz repository.");
 }
+
+// pub fn hash_object(data) {
+
+// }
