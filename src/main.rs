@@ -19,6 +19,7 @@ enum Commands {
     init,
     commit,
     read_test,
+    sha_test,
 
 }
 
@@ -54,6 +55,7 @@ fn main() {
                     let buffer = read_file_as_bytes("test.txt");
                     println!("Here come the test results: {buffer:?}");
                     return (); },
+                Commands::sha_test => { data::hash_object(); }
                 _ => { ritz_default(args) },
             }
         },
